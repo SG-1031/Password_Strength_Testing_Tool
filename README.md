@@ -6,10 +6,18 @@ A simple web-based password strength tester built with HTML and JavaScript.
 
 - Real-time password strength analysis
 - Checks for:
-  - Minimum length (8 characters)
-  - Uppercase and lowercase letters
-  - Numbers and special characters
-- Simple, responsive UI
+  - Minimum password length of 8 characters
+  - Checks for uppercase letters
+  - Checks for lowercase letters
+  - Checks for numbers
+  - Checks for special characters
+  - Responsive and simple user interface
+  - Real-time password strength feedback
+  - Estimated entropy calculation (in bits)
+  - Detection of common dictionary words
+  - Strength rating: Weak, Moderate, Strong
+  - Penalty applied if common words detected
+  - Basic accessibility support
 
 ## How to Use
 
