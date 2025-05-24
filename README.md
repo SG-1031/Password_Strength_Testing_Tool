@@ -1,6 +1,6 @@
 # Password Strength Testing Tool
 
-A simple web-based password strength tester built with HTML and JavaScript.
+A simple web-based password strength tester built with HTML, CSS and JavaScript.
 
 ## Features
 
