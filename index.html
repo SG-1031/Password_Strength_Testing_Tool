@@ -87,11 +87,15 @@
       // Dictionary check
       const dictionary = ['Passw0rd!', 'Admin123', 'Welcome1$', 'Qwerty#99', 'LetMeIn8*', 'User2023!', 'Login#456'];
       const pwLower = pw.toLowerCase();
-      const foundWords = dictionary.filter(word => pwLower.includes(word));
-
+      const foundWords = dictionary.filter(word => pwLower.includes(word.toLowerCase()));
+      
+      if (pw.length === 0) {
+        return `<p>Enter a password to test strength.</p>`;
+      }
+      
       if (foundWords.length > 0) {
         messages.push(`Avoid common words: ${foundWords.join(", ")}`);
-        score = Math.max(0, score - 2); // Penalize score
+        score = Math.max(0, score - 2);
       }
 
       // Strength rating
