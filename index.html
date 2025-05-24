@@ -56,7 +56,7 @@
       else messages.push("Too short (min 8 characters)");
 
       if (/[A-Z]/.test(pw)) score++; else messages.push("Add uppercase letters");
-      if (/[a-z]/.test(pw)) score++;
+      if (/[a-z]/.test(pw)) score++; else messages.push("Add lowercase lettters");
       if (/[0-9]/.test(pw)) score++; else messages.push("Add numbers");
       if (/[^A-Za-z0-9]/.test(pw)) score++; else messages.push("Add special characters");
 
