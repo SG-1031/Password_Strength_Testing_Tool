@@ -17,6 +17,13 @@ A simple web-based password strength tester built with HTML and JavaScript.
 2. Open `index.html` in your browser.
 3. Type a password to get instant feedback.
 
+## Summary of features:
+
+  - Checks length, uppercase, lowercase, numbers, special chars.
+  - Calculates entropy based on character sets.
+  - Detects common dictionary words and penalizes score.
+  - Shows clear feedback and suggestions in real-time.
+
 ## Author
 
 Subash Gurung – Cybersecurity Analyst
