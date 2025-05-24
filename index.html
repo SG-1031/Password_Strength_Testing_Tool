@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Password Strength Checker</title>
   <style>
     body {
@@ -23,17 +23,19 @@
       padding: 10px;
       margin-top: 10px;
       font-size: 1rem;
+      box-sizing: border-box;
     }
     #feedback {
       margin-top: 1em;
       font-weight: bold;
+      white-space: pre-wrap;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h2>Password Strength Tester</h2>
-    <input type="password" id="password" placeholder="Enter password" />
+    <input type="password" id="password" placeholder="Enter password" autocomplete="off" />
     <div id="feedback"></div>
   </div>
 
@@ -52,20 +54,53 @@
       const minLength = 8;
       const messages = [];
 
+      const hasUpper = /[A-Z]/.test(pw);
+      const hasLower = /[a-z]/.test(pw);
+      const hasNumber = /[0-9]/.test(pw);
+      const hasSpecial = /[^A-Za-z0-9]/.test(pw);
+
       if (pw.length >= minLength) score++;
       else messages.push("Too short (min 8 characters)");
 
-      if (/[A-Z]/.test(pw)) score++; else messages.push("Add uppercase letters");
-      if (/[a-z]/.test(pw)) score++; else messages.push("Add lowercase lettters");
-      if (/[0-9]/.test(pw)) score++; else messages.push("Add numbers");
-      if (/[^A-Za-z0-9]/.test(pw)) score++; else messages.push("Add special characters");
+      if (hasUpper) score++;
+      else messages.push("Add uppercase letters");
 
+      if (hasLower) score++;
+      else messages.push("Add lowercase letters");
+
+      if (hasNumber) score++;
+      else messages.push("Add numbers");
+
+      if (hasSpecial) score++;
+      else messages.push("Add special characters");
+
+      // Calculate entropy
+      let charSetSize = 0;
+      if (hasLower) charSetSize += 26;
+      if (hasUpper) charSetSize += 26;
+      if (hasNumber) charSetSize += 10;
+      if (hasSpecial) charSetSize += 32; // Approximate special chars count
+
+      const entropy = pw.length * Math.log2(charSetSize || 1);
+      messages.push(`Estimated entropy: ${entropy.toFixed(2)} bits`);
+
+      // Dictionary check
+      const dictionary = ['password', '123456', 'qwerty', 'admin', 'letmein', 'welcome', 'login'];
+      const pwLower = pw.toLowerCase();
+      const foundWords = dictionary.filter(word => pwLower.includes(word));
+
+      if (foundWords.length > 0) {
+        messages.push(`Avoid common words: ${foundWords.join(", ")}`);
+        score = Math.max(0, score - 2); // Penalize score
+      }
+
+      // Strength rating
       let rating = "Weak";
       if (score >= 4) rating = "Strong";
-      else if (score === 3) rating = "Moderate";
+      else if (score >= 2) rating = "Moderate";
 
       return `<p>Strength: <strong>${rating}</strong></p>
-              <p>Suggestions: ${messages.join(", ") || "Looks good!"}</p>`;
+              <p>Suggestions: ${messages.join(", ")}</p>`;
     }
   </script>
 </body>
